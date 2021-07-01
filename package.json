@@ -10,7 +10,7 @@
   "homepage": "http://next-auth-example.now.sh",
   "main": "",
   "scripts": {
-    "dev": "next",
+    "dev": "node server.js",
     "build": "next build",
     "start": "next start"
   },
@@ -20,6 +20,7 @@
   ],
   "license": "ISC",
   "dependencies": {
+    "@freshbooks/api": "^1.5.1",
     "next": "^11.0.0",
     "next-auth": "latest",
     "react": "^17.0.2",
