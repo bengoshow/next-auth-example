@@ -17,8 +17,8 @@ export default async (req, res) => {
 
   try {
     // Get the current user
-    const { data } = await client.users.me();
-    res.send(JSON.stringify(data, null, 2));
+    const accessToken = client.token;
+    res.send(accessToken);
     //res.send(`Hello, Employee ${data.id}`);
   } catch ({ code, message }) {
     // Handle error if API call failed

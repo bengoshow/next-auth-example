@@ -1,4 +1,5 @@
 import Layout from '../components/layout';
+import Link from 'next/link';
 
 export default function Page() {
   return (
@@ -9,13 +10,25 @@ export default function Page() {
         <em>You must be signed in to see responses.</em>
       </p>
       <h2>Session</h2>
-      <p>/api/examples/session</p>
+      <p>
+        <Link href="/api/examples/session">
+          <a>/api/examples/session</a>
+        </Link>
+      </p>
       <iframe src="/api/examples/session" />
       <h2>JSON Web Token</h2>
-      <p>/api/examples/jwt</p>
+      <p>
+        <Link href="/api/examples/jwt">
+          <a>/api/examples/jwt</a>
+        </Link>
+      </p>
       <iframe src="/api/examples/jwt" />
       <h2>Freshbooks API</h2>
-      <p>/api/examples/freshbooks-client</p>
+      <p>
+        <Link href="/api/examples/freshbooks-client">
+          <a>/api/examples/freshbooks-client</a>
+        </Link>
+      </p>
       <iframe src="/api/examples/freshbooks-client" />
     </Layout>
   );
