@@ -1,17 +1,22 @@
-import Layout from '../components/layout'
+import Layout from '../components/layout';
 
-export default function Page () {
+export default function Page() {
   return (
     <Layout>
       <h1>API Example</h1>
       <p>The examples below show responses from the example API endpoints.</p>
-      <p><em>You must be signed in to see responses.</em></p>
+      <p>
+        <em>You must be signed in to see responses.</em>
+      </p>
       <h2>Session</h2>
       <p>/api/examples/session</p>
-      <iframe src="/api/examples/session"/>
+      <iframe src="/api/examples/session" />
       <h2>JSON Web Token</h2>
       <p>/api/examples/jwt</p>
-      <iframe src="/api/examples/jwt"/>
+      <iframe src="/api/examples/jwt" />
+      <h2>Freshbooks API</h2>
+      <p>/api/examples/freshbooks-client</p>
+      <iframe src="/api/examples/freshbooks-client" />
     </Layout>
-  )
+  );
 }
