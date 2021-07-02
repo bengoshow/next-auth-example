@@ -84,7 +84,7 @@ export default NextAuth({
   // The secret should be set to a reasonably long random string.
   // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
   // a separate secret is defined explicitly for encrypting the JWT.
-  //secret: process.env.SECRET,
+  secret: process.env.SECRET,
 
   session: {
     // Use JSON Web Tokens for session instead of database sessions.
@@ -105,14 +105,32 @@ export default NextAuth({
   // option is set - or by default if no database is specified.
   // https://next-auth.js.org/configuration/options#jwt
   jwt: {
-    // A secret to use for key generation (you should set this explicitly)
-    secret: 'INp8IvdIyeMcoGAgFGoA61DdBglwwSqnXJZkgz8PSnw',
-    // Set to true to use encryption (default: false)
+    // A secret to use for key generation - you should set this explicitly
+    // Defaults to NextAuth.js secret if not explicitly specified.
+    // This is used to generate the actual signingKey and produces a warning
+    // message if not defined explicitly.
+    // secret: '1wcGOL2ZFZdK54xKJqwTemMsIHUDMZ4E',
+    // You can generate a signing key using `jose newkey -s 512 -t oct -a HS512`
+    // This gives you direct knowledge of the key used to sign the token so you can use it
+    // to authenticate indirectly (eg. to a database driver)
+    // signingKey: { kty: 'oct', kid: 'Dl893BEV-iVE-x9EC52TDmlJUgGm9oZ99_ZL025Hc5Q', alg: 'HS512', k: 'K7QqRmJOKRK2qcCKV_pi9PSBv3XP0fpTu30TP8xn4w01xR3ZMZM38yL2DnTVPVw6e4yhdh0jtoah-i4c_pZagA' },
+    // signingKey: jwtKey,
+    // If you chose something other than the default algorithm for the signingKey (HS512)
+    // you also need to configure the algorithm
+    // verificationOptions: {
+    //    algorithms: ['HS256']
+    // },
+    // Set to true to use encryption. Defaults to false (signing only).
     // encryption: true,
+    // encryptionKey: "",
+    // decryptionKey = encryptionKey,
+    // decryptionOptions = {
+    //    algorithms: ['A256GCM']
+    // },
     // You can define your own encode/decode functions for signing and encryption
     // if you want to override the default behaviour.
-    // encode: async ({ secret, token, maxAge }) => {},
-    // decode: async ({ secret, token, maxAge }) => {},
+    // async encode({ secret, token, maxAge }) {},
+    // async decode({ secret, token, maxAge }) {},
   },
 
   // You can define custom pages to override the built-in ones. These will be regular Next.js pages
