@@ -46,6 +46,10 @@ export default NextAuth({
     //   clientSecret: process.env.AUTH0_SECRET,
     //   domain: process.env.AUTH0_DOMAIN,
     // }),
+    // Providers.Freshbooks({
+    //   clientId: process.env.FRESHBOOKS_CLIENT_ID,
+    //   clientSecret: process.env.FRESHBOOKS_CLIENT_SECRET,
+    // }),
     {
       id: 'freshbooks',
       name: 'Freshbooks',
@@ -53,10 +57,8 @@ export default NextAuth({
       version: '2.0',
       params: { grant_type: 'authorization_code' },
       accessTokenUrl: 'https://api.freshbooks.com/auth/oauth/token',
-      //requestTokenUrl: 'https://auth.freshbooks.com/service/auth/oauth/authorize',
       authorizationUrl: 'https://auth.freshbooks.com/service/auth/oauth/authorize?response_type=code',
       profileUrl: 'https://api.freshbooks.com/auth/api/v1/users/me',
-      //protection: 'state',
       async profile(profile, tokens) {
         // You can use the tokens, in case you want to fetch more profile information
         // For example several OAuth providers do not return email by default.
@@ -65,7 +67,6 @@ export default NextAuth({
           id: profile.response.id,
           name: `${profile.response.first_name} ${profile.response.last_name}`,
           email: profile.response.email,
-          //access_token: tokens.account.accessToken,
         };
       },
       clientId: process.env.FRESHBOOKS_CLIENT_ID,
