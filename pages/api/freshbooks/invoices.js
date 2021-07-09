@@ -1,5 +1,6 @@
 import { Client } from '@freshbooks/api';
 import { SearchQueryBuilder } from '@freshbooks/api/dist/models/builders/SearchQueryBuilder';
+import { IncludesQueryBuilder } from '@freshbooks/api/dist/models/builders/IncludesQueryBuilder';
 
 import jwt from 'next-auth/jwt';
 
@@ -27,12 +28,13 @@ export default async (req, res) => {
     console.error(`Error fetching user: ${code} - ${message}`);
   }
 
-  const businessId = '623564';
-  const searchQueryBuilder = new SearchQueryBuilder().equals('started_from', '2021-07-01');
+  const accountId = 'MNyZK';
+  const searchQueryBuilder = new SearchQueryBuilder().between('date', { min: new Date('2021-07-01'), max: new Date('2021-07-09') });
+  const includesQueryBuilder = new IncludesQueryBuilder().includes(['lines']);
 
   try {
     // Get the current user
-    const { data } = await client.timeEntries.list(businessId, [searchQueryBuilder]);
+    const { data } = await client.invoices.list(accountId, [includesQueryBuilder]);
     res.send(JSON.stringify(data, null, 2));
     //res.send(`Hello, Employee ${data.id}`);
   } catch ({ code, message }) {
