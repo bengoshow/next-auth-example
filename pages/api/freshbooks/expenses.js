@@ -30,11 +30,11 @@ export default async (req, res) => {
 
   const accountId = 'MNyZK';
   const searchQueryBuilder = new SearchQueryBuilder().between('date', { min: new Date('2021-07-01'), max: new Date('2021-07-09') });
-  //const includesQueryBuilder = new IncludesQueryBuilder().includes(['expense_profile']);
+  const includesQueryBuilder = new IncludesQueryBuilder().includes(['expense_profile']);
 
   try {
     // Get the current user
-    const { data } = await client.expenses.list(accountId, [searchQueryBuilder]);
+    const { data } = await client.expenses.list(accountId, [searchQueryBuilder, includesQueryBuilder]);
     res.send(JSON.stringify(data, null, 2));
     //res.send(`Hello, Employee ${data.id}`);
   } catch ({ code, message }) {

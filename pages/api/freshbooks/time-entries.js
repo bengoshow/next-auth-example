@@ -1,5 +1,5 @@
 import { Client } from '@freshbooks/api';
-import { SearchQueryBuilder } from '@freshbooks/api/dist/models/builders/SearchQueryBuilder';
+import { QueryBuilder } from '../../../lib/QueryBuilder';
 
 import jwt from 'next-auth/jwt';
 
@@ -28,15 +28,16 @@ export default async (req, res) => {
   }
 
   const businessId = '623564';
-  const searchQueryBuilder = new SearchQueryBuilder().equals('started_from', '2021-07-01');
+  const queryBuilder = new QueryBuilder().equals('started_from', '2021-07-01 00:00:00').equals('started_to', '2021-07-07 00:00:00');
 
   try {
     // Get the current user
-    const { data } = await client.timeEntries.list(businessId, [searchQueryBuilder]);
+    const { data } = await client.timeEntries.list(businessId, [queryBuilder]);
     res.send(JSON.stringify(data, null, 2));
     //res.send(`Hello, Employee ${data.id}`);
   } catch ({ code, message }) {
     // Handle error if API call failed
-    console.error(`Error fetching user: ${code} - ${message}`);
+    res.send(`Error: ${code} - ${message}`);
+    console.error(`Error: ${code} - ${message}`);
   }
 };

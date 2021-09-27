@@ -14,14 +14,17 @@ export default async (req, res) => {
   const client = new Client(accessToken, {
     clientId: clientId,
   });
-
-  try {
-    // Get the current user
-    const { data } = await client.users.me();
-    res.send(JSON.stringify(data, null, 2));
-    //res.send(`Hello, Employee ${data.id}`);
-  } catch ({ code, message }) {
-    // Handle error if API call failed
-    console.error(`Error fetching user: ${code} - ${message}`);
+  if (token) {
+    try {
+      // Get the current user
+      const { data } = await client.users.me();
+      res.send(JSON.stringify(data, null, 2));
+      //res.send(`Hello, Employee ${data.id}`);
+    } catch ({ code, message }) {
+      // Handle error if API call failed
+      console.error(`Error fetching user: ${code} - ${message}`);
+    }
+  } else {
+    res.send({ error: 'You must be sign in to view the protected content on this page.' });
   }
 };

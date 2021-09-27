@@ -34,7 +34,7 @@ export default async (req, res) => {
 
   try {
     // Get the current user
-    const { data } = await client.invoices.list(accountId, [includesQueryBuilder]);
+    const { data } = await client.invoices.list(accountId, [searchQueryBuilder, includesQueryBuilder]);
     res.send(JSON.stringify(data, null, 2));
     //res.send(`Hello, Employee ${data.id}`);
   } catch ({ code, message }) {
