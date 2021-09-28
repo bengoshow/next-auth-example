@@ -1,77 +1,16 @@
 import NextAuth from 'next-auth';
-import Providers from 'next-auth/providers';
+//import Providers from 'next-auth/providers';
+import FreshbooksProvider from 'next-auth/providers/freshbooks';
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export default NextAuth({
   // https://next-auth.js.org/configuration/providers
   providers: [
-    // Providers.Email({
-    //   server: process.env.EMAIL_SERVER,
-    //   from: process.env.EMAIL_FROM,
-    // }),
-    // Temporarily removing the Apple provider from the demo site as the
-    // callback URL for it needs updating due to Vercel changing domains
-    /*
-    Providers.Apple({
-      clientId: process.env.APPLE_ID,
-      clientSecret: {
-        appleId: process.env.APPLE_ID,
-        teamId: process.env.APPLE_TEAM_ID,
-        privateKey: process.env.APPLE_PRIVATE_KEY,
-        keyId: process.env.APPLE_KEY_ID,
-      },
-    }),
-    */
-    // Providers.Facebook({
-    //   clientId: process.env.FACEBOOK_ID,
-    //   clientSecret: process.env.FACEBOOK_SECRET,
-    // }),
-    // Providers.GitHub({
-    //   clientId: process.env.GITHUB_ID,
-    //   clientSecret: process.env.GITHUB_SECRET,
-    //   // https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
-    //   scope: 'read:user',
-    // }),
-    // Providers.Google({
-    //   clientId: process.env.GOOGLE_ID,
-    //   clientSecret: process.env.GOOGLE_SECRET,
-    // }),
-    // Providers.Twitter({
-    //   clientId: process.env.TWITTER_ID,
-    //   clientSecret: process.env.TWITTER_SECRET,
-    // }),
-    // Providers.Auth0({
-    //   clientId: process.env.AUTH0_ID,
-    //   clientSecret: process.env.AUTH0_SECRET,
-    //   domain: process.env.AUTH0_DOMAIN,
-    // }),
-    // Providers.Freshbooks({
-    //   clientId: process.env.FRESHBOOKS_CLIENT_ID,
-    //   clientSecret: process.env.FRESHBOOKS_CLIENT_SECRET,
-    // }),
-    {
-      id: 'freshbooks',
-      name: 'Freshbooks',
-      type: 'oauth',
-      version: '2.0',
-      params: { grant_type: 'authorization_code' },
-      accessTokenUrl: 'https://api.freshbooks.com/auth/oauth/token',
-      authorizationUrl: 'https://auth.freshbooks.com/service/auth/oauth/authorize?response_type=code',
-      profileUrl: 'https://api.freshbooks.com/auth/api/v1/users/me',
-      async profile(profile, tokens) {
-        // You can use the tokens, in case you want to fetch more profile information
-        // For example several OAuth providers do not return email by default.
-        // Depending on your provider, will have tokens like `access_token`, `id_token` and or `refresh_token`
-        return {
-          id: profile.response.id,
-          name: `${profile.response.first_name} ${profile.response.last_name}`,
-          email: profile.response.email,
-        };
-      },
+    FreshbooksProvider({
       clientId: process.env.FRESHBOOKS_CLIENT_ID,
       clientSecret: process.env.FRESHBOOKS_CLIENT_SECRET,
-    },
+    }),
   ],
   // Database optional. MySQL, Maria DB, Postgres and MongoDB are supported.
   // https://next-auth.js.org/configuration/databases
